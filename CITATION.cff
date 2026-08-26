@@ -1,0 +1,34 @@
+# CITATION.cff
+
+
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+
+title: "X4 Pro Lock Screen Converter"
+type: software
+
+authors:
+  - family-names: "Paiva"
+    given-names: "Heleno"
+
+version: "1.0.0"
+date-released: "2026-08-26"
+
+abstract: >
+  A browser-based image converter designed to prepare custom lock-screen
+  images for the Xteink X4 Pro. Images are resized to 480 × 800 pixels,
+  converted to grayscale, processed using Floyd–Steinberg dithering,
+  and exported as uncompressed 24-bit BMP files optimized for e-ink display.
+
+keywords:
+  - e-ink
+  - Xteink
+  - X4 Pro
+  - dithering
+  - Floyd-Steinberg
+  - BMP
+  - image processing
+  - lock screen
+
+license: MIT
+```
