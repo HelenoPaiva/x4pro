@@ -1,183 +1,79 @@
-README.md
-X4 Pro Lock Screen Converter
+# README.md
 
-A simple browser-based image converter designed for preparing custom lock-screen images for the Xteink X4 Pro, particularly when using firmware such as CrossInk.
+# X4 Pro Lock Screen Converter
 
-The app converts ordinary images into a format that renders more reliably on the X4 Pro's e-ink display.
+A simple browser-based tool for preparing custom lock-screen images for the **Xteink X4 Pro**, particularly when using **CrossInk**.
 
-Features
-Runs entirely in the browser
-No server or backend required
-Mobile-friendly interface
-Multiple image upload
-Automatically resizes images to 480 × 800 px
-Converts images to grayscale
-Applies Floyd–Steinberg dithering
-Produces strict black-and-white pixel data
-Exports as 24-bit uncompressed BMP
-Individual BMP downloads
-Suitable for deployment with GitHub Pages
-Why?
+It converts ordinary images into a format that renders more reliably on the X4 Pro's e-ink display.
 
-The X4 Pro can render ordinary grayscale lock-screen images poorly under some firmware configurations.
+## Features
 
-Images containing smooth gradients and intermediate gray levels may appear:
+- Runs entirely in your browser
+- Mobile friendly
+- No server or installation required
+- Supports multiple image uploads
+- Resizes images to **480 × 800 px**
+- Converts images to grayscale
+- Applies **Floyd–Steinberg dithering**
+- Exports **24-bit uncompressed BMP**
+- Individual image preview and download
+- Works as a single `index.html` file
+- Ready for GitHub Pages
 
-posterized
-washed out
-overly dark
-lacking facial detail
-poorly separated in the midtones
+## Why?
 
-A reliable workaround is to perform the grayscale conversion and dithering before the image reaches the device.
+The X4 Pro may render conventional grayscale lock-screen images poorly, with posterization, lost midtones, or excessive contrast.
 
-This tool uses the following workflow:
+This converter preprocesses the image as:
 
-Original image
-      ↓
-Resize / crop to 480 × 800
-      ↓
-Grayscale conversion
-      ↓
-Floyd–Steinberg dithering
-      ↓
-Black / white pixel image
-      ↓
-24-bit uncompressed BMP
+**Image → 480×800 → Grayscale → Floyd–Steinberg dithering → Black/White pixels → 24-bit BMP**
 
-Although the output BMP is stored as a 24-bit image, each pixel is either pure black or pure white. Apparent shades of gray are produced by dithering patterns rather than relying on the device's grayscale rendering.
+Instead of asking the e-ink display to reproduce intermediate gray values, apparent shades of gray are created using patterns of black and white pixels.
 
-Usage
-Online
+## Usage
 
-Open the GitHub Pages version of the project.
+1. Open the converter in your browser.
+2. Upload one or more images.
+3. Choose **Cover** or **Contain**.
+4. Adjust brightness or contrast if needed.
+5. Select **Process selected images**.
+6. Preview the result.
+7. Download the generated `.bmp` file.
+8. Copy it to your X4 Pro for use as a lock/sleep screen.
 
-Select one or more images.
-Choose the desired resize mode.
-Adjust brightness or contrast if necessary.
-Press Process selected images.
-Preview the result.
-Download the generated BMP.
-Copy the BMP to the location used by your X4 Pro firmware for custom sleep or lock-screen images.
-Default output
+## Default Output
 
-The default conversion settings are:
+| Setting | Value |
+| --- | --- |
+| Resolution | 480 × 800 px |
+| Grayscale | Yes |
+| Dithering | Floyd–Steinberg |
+| Output pixels | Black / White |
+| Format | BMP |
+| Color depth | 24-bit |
+| Compression | None |
 
-Setting	Value
-Resolution	480 × 800 px
-Color processing	Grayscale
-Dithering	Floyd–Steinberg
-Final pixel values	Black / White
-File format	BMP
-BMP depth	24-bit
-Compression	None / BI_RGB
+## Privacy
 
-These defaults are intended specifically for reliable rendering on the X4 Pro.
+All processing happens **locally in your browser**.
 
-Resize modes
-Cover
+Your images are not uploaded to a server.
 
-The image fills the complete 480 × 800 frame.
+## Deployment
 
-Parts of the image may be cropped when its aspect ratio differs from the X4 Pro screen.
+The application is contained entirely in:
 
-Contain
+`index.html`
 
-The complete image is preserved within the 480 × 800 frame.
+It can be hosted directly using **GitHub Pages** with no backend or build process.
 
-White margins may be added when necessary.
+## License
 
-Image processing
+Released under the **MIT License**.
 
-Grayscale luminance is calculated from the RGB image approximately as:
+## Disclaimer
 
-Y = 0.299R + 0.587G + 0.114B
+This is an independent project and is not affiliated with or endorsed by Xteink or CrossInk.
 
-The resulting grayscale image is then converted to black and white using Floyd–Steinberg error diffusion.
-
-The quantization error is distributed to neighboring pixels using:
-
-        X   7/16
-3/16  5/16  1/16
-
-This allows the high-resolution e-ink display to visually reproduce intermediate tones using patterns of black and white pixels.
-
-Privacy
-
-All processing occurs locally in your browser.
-
-Images are not uploaded to a server by this application.
-
-Opening the application through GitHub Pages only downloads the application itself. Image conversion is performed on the user's device using JavaScript and the HTML Canvas API.
-
-Installation
-
-No build process is required.
-
-Clone or download the repository and open:
-
-index.html
-
-in a modern web browser.
-
-For GitHub Pages:
-
-Create a GitHub repository.
-Add index.html.
-Open Settings → Pages.
-Select the repository branch as the deployment source.
-Save.
-Open the generated GitHub Pages URL.
-Browser compatibility
-
-The converter should work in current versions of major browsers including:
-
-Chrome
-Edge
-Firefox
-Safari
-Mobile Safari
-Chrome for Android
-
-Image formats available for upload depend partly on browser support.
-
-JPEG, PNG, WebP, and BMP should work on most modern browsers.
-
-Limitations
-
-This project is an independent utility and is not affiliated with or endorsed by Xteink or the developers of third-party X4 Pro firmware.
-
-E-ink rendering can vary depending on:
-
-firmware version
-display waveform
-refresh mode
-display controller
-image content
-
-The default conversion settings were chosen because they produce reliable results on the X4 Pro, but individual images may benefit from brightness or contrast adjustment.
-
-Contributing
-
-Bug reports, improvements, and pull requests are welcome.
-
-Useful areas for future development include:
-
-alternative dithering algorithms
-automatic portrait optimization
-contrast presets
-batch ZIP export
-draggable crop positioning
-device presets for other e-ink readers
-PWA / offline support
-License
-
-This project is released under the MIT License.
-
-See LICENSE for details.
-
-Citation
-
-If you use this software in a publication, project, tutorial, or academic work, please cite the repository.
-
-Citation metadata is provided in CITATION.cff.
+E-ink rendering may vary depending on firmware version, refresh mode, display waveform, and image content.
+```
