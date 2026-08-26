@@ -6,60 +6,120 @@
     name="viewport"
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   />
+
   <title>X4 Pro Lock Screen Converter</title>
+
+  <meta
+    name="description"
+    content="Convert images into 480x800 Floyd–Steinberg dithered BMP files optimized for Xteink X4 Pro lock screens."
+  />
+
   <style>
-    :root{
-      --bg:#0f1115;
-      --panel:#171a21;
-      --panel-2:#1f2430;
-      --text:#f3f4f6;
-      --muted:#aeb6c2;
-      --line:#2c3444;
-      --accent:#7dd3fc;
-      --accent-2:#38bdf8;
-      --good:#86efac;
-      --bad:#fda4af;
-      --card:#12161d;
-      --shadow:0 10px 25px rgba(0,0,0,.25);
-      --radius:16px;
+    :root {
+      --bg: #0f1115;
+      --panel: #171a21;
+      --panel-2: #1f2430;
+      --text: #f3f4f6;
+      --muted: #aeb6c2;
+      --line: #2c3444;
+      --accent: #7dd3fc;
+      --accent-2: #38bdf8;
+      --card: #12161d;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      --radius: 16px;
     }
 
-    * { box-sizing: border-box; }
-    html, body { margin:0; padding:0; background:var(--bg); color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; }
-    body { min-height:100vh; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+    }
 
     .wrap {
-      width:min(1100px, 100%);
-      margin:0 auto;
-      padding:18px;
+      width: min(1100px, 100%);
+      margin: 0 auto;
+      padding: 18px;
     }
 
     .hero {
-      background:linear-gradient(180deg, #18202b 0%, #131821 100%);
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:20px;
-      box-shadow:var(--shadow);
-      margin-bottom:18px;
+      background: linear-gradient(180deg, #18202b 0%, #131821 100%);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 18px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
     }
 
     h1 {
-      margin:0 0 10px 0;
-      font-size:1.5rem;
-      line-height:1.2;
+      margin: 0 0 10px 0;
+      font-size: 1.5rem;
+      line-height: 1.2;
     }
 
     .sub {
-      color:var(--muted);
-      font-size:.98rem;
-      line-height:1.5;
-      margin-bottom:14px;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.5;
+      margin-bottom: 14px;
+      max-width: 760px;
+    }
+
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #242a35;
+      border: 1px solid #3b465a;
+      color: var(--text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      white-space: nowrap;
+      transition: 0.18s ease;
+    }
+
+    .github-link:hover {
+      background: #303847;
+      border-color: #506079;
+    }
+
+    .github-icon {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      flex-shrink: 0;
     }
 
     .grid {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:18px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
     }
 
     @media (min-width: 900px) {
@@ -69,277 +129,364 @@
     }
 
     .panel {
-      background:var(--panel);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow:var(--shadow);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: var(--shadow);
     }
 
     .panel h2 {
-      margin:0 0 12px 0;
-      font-size:1.08rem;
+      margin: 0 0 12px 0;
+      font-size: 1.08rem;
     }
 
     .muted {
-      color:var(--muted);
-      font-size:.92rem;
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .upload-box {
-      border:2px dashed #3b475d;
-      border-radius:16px;
-      padding:18px;
-      text-align:center;
-      background:#10141b;
-      transition:.2s ease;
-      margin-bottom:14px;
+      border: 2px dashed #3b475d;
+      border-radius: 16px;
+      padding: 18px;
+      text-align: center;
+      background: #10141b;
+      transition: 0.2s ease;
+      margin-bottom: 14px;
     }
 
     .upload-box.dragover {
-      border-color:var(--accent);
-      background:#0d1620;
+      border-color: var(--accent);
+      background: #0d1620;
     }
 
     .upload-box p {
-      margin:8px 0;
-      color:var(--muted);
-      font-size:.95rem;
+      margin: 8px 0;
+      color: var(--muted);
+      font-size: 0.95rem;
     }
 
     input[type="file"] {
-      width:100%;
-      margin-top:10px;
-      color:var(--muted);
+      width: 100%;
+      margin-top: 10px;
+      color: var(--muted);
     }
 
     .controls {
-      display:grid;
-      gap:12px;
+      display: grid;
+      gap: 12px;
     }
 
     .row {
-      display:grid;
-      gap:8px;
+      display: grid;
+      gap: 8px;
     }
 
     .row label {
-      font-size:.92rem;
-      color:var(--text);
-      font-weight:600;
+      font-size: 0.92rem;
+      color: var(--text);
+      font-weight: 600;
     }
 
     .inline {
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
     }
 
     .field {
-      background:var(--panel-2);
-      color:var(--text);
-      border:1px solid #394154;
-      border-radius:12px;
-      padding:10px 12px;
-      width:100%;
-      font-size:.95rem;
+      background: var(--panel-2);
+      color: var(--text);
+      border: 1px solid #394154;
+      border-radius: 12px;
+      padding: 10px 12px;
+      width: 100%;
+      font-size: 0.95rem;
     }
 
     .range-wrap {
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-      align-items:center;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      align-items: center;
     }
 
     input[type="range"] {
-      width:100%;
+      width: 100%;
     }
 
     .chips {
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
     }
 
     .chip {
-      background:#0f1722;
-      border:1px solid #314056;
-      color:var(--muted);
-      font-size:.8rem;
-      padding:6px 10px;
-      border-radius:999px;
+      background: #0f1722;
+      border: 1px solid #314056;
+      color: var(--muted);
+      font-size: 0.8rem;
+      padding: 6px 10px;
+      border-radius: 999px;
     }
 
     .btns {
-      display:grid;
-      gap:10px;
-      margin-top:14px;
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
     }
 
-    button, .btn-link {
-      appearance:none;
-      border:none;
-      border-radius:12px;
-      padding:12px 14px;
-      font-size:.95rem;
-      font-weight:700;
-      cursor:pointer;
-      text-align:center;
-      transition:.18s ease;
-      text-decoration:none;
-      display:inline-block;
+    button,
+    .btn-link {
+      appearance: none;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: 0.18s ease;
+      text-decoration: none;
+      display: inline-block;
     }
 
     .btn-primary {
-      background:var(--accent-2);
-      color:#07131b;
+      background: var(--accent-2);
+      color: #07131b;
     }
 
-    .btn-primary:hover { filter:brightness(1.07); }
+    .btn-primary:hover {
+      filter: brightness(1.07);
+    }
 
     .btn-secondary {
-      background:#283244;
-      color:var(--text);
-      border:1px solid #3a465c;
+      background: #283244;
+      color: var(--text);
+      border: 1px solid #3a465c;
     }
 
     .btn-danger {
-      background:#332028;
-      color:#ffd3dc;
-      border:1px solid #5a3440;
+      background: #332028;
+      color: #ffd3dc;
+      border: 1px solid #5a3440;
     }
 
     .btn-download {
-      background:#173225;
-      color:#d9ffe8;
-      border:1px solid #2d664b;
+      background: #173225;
+      color: #d9ffe8;
+      border: 1px solid #2d664b;
     }
 
     .results-head {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
 
     .results {
-      display:grid;
-      gap:16px;
+      display: grid;
+      gap: 16px;
     }
 
     .card {
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:14px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 14px;
     }
 
     .card-top {
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
-      flex-wrap:wrap;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
     }
 
     .name {
-      font-weight:700;
-      word-break:break-word;
+      font-weight: 700;
+      word-break: break-word;
     }
 
     .small {
-      color:var(--muted);
-      font-size:.85rem;
+      color: var(--muted);
+      font-size: 0.85rem;
     }
 
     .status {
-      padding:5px 10px;
-      border-radius:999px;
-      font-size:.78rem;
-      font-weight:700;
-      border:1px solid #446;
-      white-space:nowrap;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid #446;
+      white-space: nowrap;
     }
 
-    .ok { background:#13251a; color:#b7f7ca; border-color:#2a5f3a; }
-    .pending { background:#242014; color:#f5e2a8; border-color:#66552b; }
-    .err { background:#29161b; color:#ffc9d2; border-color:#6b3643; }
+    .ok {
+      background: #13251a;
+      color: #b7f7ca;
+      border-color: #2a5f3a;
+    }
+
+    .pending {
+      background: #242014;
+      color: #f5e2a8;
+      border-color: #66552b;
+    }
+
+    .err {
+      background: #29161b;
+      color: #ffc9d2;
+      border-color: #6b3643;
+    }
 
     .preview-grid {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
     }
 
     @media (min-width: 700px) {
       .preview-grid {
-        grid-template-columns:1fr 1fr;
+        grid-template-columns: 1fr 1fr;
       }
     }
 
     .preview-box {
-      background:#0b0e13;
-      border:1px solid #252c38;
-      border-radius:14px;
-      padding:10px;
+      background: #0b0e13;
+      border: 1px solid #252c38;
+      border-radius: 14px;
+      padding: 10px;
     }
 
     .preview-title {
-      font-size:.83rem;
-      color:var(--muted);
-      margin-bottom:8px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:.04em;
+      font-size: 0.83rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .preview-box canvas,
     .preview-box img {
-      width:100%;
-      border-radius:10px;
-      display:block;
-      background:#000;
+      width: 100%;
+      border-radius: 10px;
+      display: block;
+      background: #000;
     }
 
     .actions {
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
     }
 
     .footer-note {
-      margin-top:18px;
-      color:var(--muted);
-      font-size:.88rem;
-      line-height:1.5;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.5;
     }
 
     .code {
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      background:#0d1016;
-      border:1px solid #283244;
-      padding:2px 6px;
-      border-radius:8px;
-      color:#d1ecff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: #0d1016;
+      border: 1px solid #283244;
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: #d1ecff;
+    }
+
+    footer {
+      margin-top: 28px;
+      padding: 20px 4px 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
+
     <div class="hero">
-      <h1>X4 Pro Lock Screen Converter</h1>
-      <div class="sub">
-        Upload photos from your mobile or desktop, convert them into
-        <strong>480×800, 24-bit uncompressed BMP</strong> with
-        <strong>grayscale + Floyd–Steinberg dithering</strong>,
-        and download the files ready for your X4 Pro / CrossInk workflow.
+      <div class="hero-top">
+
+        <div>
+          <h1>X4 Pro Lock Screen Converter</h1>
+
+          <div class="sub">
+            Convert images into
+            <strong>480 × 800, 24-bit uncompressed BMP</strong> files using
+            <strong>Floyd–Steinberg dithering</strong>, optimized for reliable
+            rendering on the Xteink X4 Pro.
+          </div>
+        </div>
+
+        <a
+          class="github-link"
+          href="https://github.com/HelenoPaiva/x4pro"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View project on GitHub"
+        >
+          <svg
+            class="github-icon"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 .5C5.73.5.75 5.59.75 11.86c0 5.01 3.44 9.26
+              8.2 10.76.6.11.82-.26.82-.58
+              0-.29-.01-1.24-.02-2.25-3.34.73-4.04-1.44-4.04-1.44
+              -.55-1.41-1.35-1.78-1.35-1.78-1.1-.76.08-.74.08-.74
+              1.22.09 1.86 1.26 1.86 1.26
+              1.08 1.87 2.84 1.33 3.53 1.02
+              .11-.79.42-1.33.76-1.64
+              -2.67-.31-5.48-1.35-5.48-6
+              0-1.33.47-2.42 1.24-3.27
+              -.12-.31-.54-1.56.12-3.25
+              0 0 1.01-.33 3.3 1.25
+              .96-.27 1.98-.41 3-.41
+              1.02 0 2.04.14 3 .41
+              2.29-1.58 3.3-1.25 3.3-1.25
+              .66 1.69.24 2.94.12 3.25
+              .77.85 1.24 1.94 1.24 3.27
+              0 4.66-2.81 5.68-5.49 5.99
+              .43.38.81 1.13.81 2.28
+              0 1.64-.02 2.96-.02 3.36
+              0 .32.22.7.82.58
+              4.76-1.5 8.19-5.75 8.19-10.76
+              C23.25 5.59 18.27.5 12 .5z"
+            />
+          </svg>
+
+          View on GitHub
+        </a>
+
       </div>
+
       <div class="chips">
         <span class="chip">Single HTML file</span>
         <span class="chip">No server required</span>
@@ -350,48 +497,96 @@
     </div>
 
     <div class="grid">
+
       <div class="panel">
         <h2>Settings</h2>
 
         <div id="dropZone" class="upload-box">
           <strong>Drop images here</strong>
           <p>or choose files below</p>
-          <input id="fileInput" type="file" accept="image/*" multiple />
-          <p class="small">PNG, JPG, WEBP, BMP, HEIC/HEIF if your browser supports it.</p>
+
+          <input
+            id="fileInput"
+            type="file"
+            accept="image/*"
+            multiple
+          />
+
+          <p class="small">
+            PNG, JPG, WebP and BMP are supported by most browsers.
+          </p>
         </div>
 
         <div class="controls">
+
           <div class="row">
             <label for="fitMode">Resize mode</label>
+
             <select id="fitMode" class="field">
-              <option value="cover" selected>Cover (crop to fill 480×800)</option>
-              <option value="contain">Contain (fit inside, add white margins)</option>
+              <option value="cover" selected>
+                Cover — crop to fill 480×800
+              </option>
+
+              <option value="contain">
+                Contain — preserve image with white margins
+              </option>
             </select>
           </div>
 
           <div class="inline">
+
             <div class="row">
               <label for="targetW">Width</label>
-              <input id="targetW" class="field" type="number" value="480" min="1" />
+              <input
+                id="targetW"
+                class="field"
+                type="number"
+                value="480"
+                min="1"
+              />
             </div>
+
             <div class="row">
               <label for="targetH">Height</label>
-              <input id="targetH" class="field" type="number" value="800" min="1" />
+              <input
+                id="targetH"
+                class="field"
+                type="number"
+                value="800"
+                min="1"
+              />
             </div>
+
           </div>
 
           <div class="row">
             <label for="brightness">Brightness</label>
+
             <div class="range-wrap">
-              <input id="brightness" type="range" min="-100" max="100" value="0" />
+              <input
+                id="brightness"
+                type="range"
+                min="-100"
+                max="100"
+                value="0"
+              />
+
               <span id="brightnessVal" class="small">0</span>
             </div>
           </div>
 
           <div class="row">
             <label for="contrast">Contrast</label>
+
             <div class="range-wrap">
-              <input id="contrast" type="range" min="-100" max="100" value="0" />
+              <input
+                id="contrast"
+                type="range"
+                min="-100"
+                max="100"
+                value="0"
+              />
+
               <span id="contrastVal" class="small">0</span>
             </div>
           </div>
@@ -399,176 +594,339 @@
           <div class="row">
             <label for="invert">
               <input id="invert" type="checkbox" />
-              Invert black/white
+              Invert black / white
             </label>
           </div>
 
           <div class="btns">
-            <button id="processBtn" class="btn-primary">Process selected images</button>
-            <button id="downloadAllBtn" class="btn-secondary">Download all processed BMPs</button>
-            <button id="clearBtn" class="btn-danger">Clear everything</button>
+
+            <button
+              id="processBtn"
+              class="btn-primary"
+            >
+              Process selected images
+            </button>
+
+            <button
+              id="downloadAllBtn"
+              class="btn-secondary"
+            >
+              Download all processed BMPs
+            </button>
+
+            <button
+              id="clearBtn"
+              class="btn-danger"
+            >
+              Clear everything
+            </button>
+
           </div>
 
           <div class="footer-note">
-            Default settings reproduce the same logic that worked for you:
-            <span class="code">grayscale → Floyd–Steinberg dither → 24-bit BMP</span>.
+            Default processing:
+            <span class="code">
+              grayscale → Floyd–Steinberg → 24-bit BMP
+            </span>
           </div>
+
         </div>
       </div>
 
       <div class="panel">
+
         <div class="results-head">
+
           <div>
-            <h2 style="margin:0;">Results</h2>
-            <div class="muted">Each processed file gets a preview and a BMP download button.</div>
+            <h2 style="margin: 0">Results</h2>
+
+            <div class="muted">
+              Preview and download each processed BMP.
+            </div>
           </div>
-          <div class="small" id="countInfo">No files loaded.</div>
+
+          <div
+            class="small"
+            id="countInfo"
+          >
+            No files loaded.
+          </div>
+
         </div>
 
-        <div id="results" class="results"></div>
+        <div
+          id="results"
+          class="results"
+        ></div>
+
       </div>
+
     </div>
+
+    <footer>
+      X4 Pro Lock Screen Converter ·
+      Open-source software by Heleno Paiva
+      <br />
+
+      <a
+        href="https://github.com/HelenoPaiva/x4pro"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        github.com/HelenoPaiva/x4pro
+      </a>
+    </footer>
+
   </div>
 
   <script>
-    const fileInput = document.getElementById('fileInput');
-    const dropZone = document.getElementById('dropZone');
-    const processBtn = document.getElementById('processBtn');
-    const downloadAllBtn = document.getElementById('downloadAllBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const resultsEl = document.getElementById('results');
-    const countInfo = document.getElementById('countInfo');
+    const fileInput = document.getElementById("fileInput");
+    const dropZone = document.getElementById("dropZone");
 
-    const fitModeEl = document.getElementById('fitMode');
-    const targetWEl = document.getElementById('targetW');
-    const targetHEl = document.getElementById('targetH');
-    const brightnessEl = document.getElementById('brightness');
-    const contrastEl = document.getElementById('contrast');
-    const invertEl = document.getElementById('invert');
-    const brightnessVal = document.getElementById('brightnessVal');
-    const contrastVal = document.getElementById('contrastVal');
+    const processBtn = document.getElementById("processBtn");
+    const downloadAllBtn = document.getElementById("downloadAllBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    const resultsEl = document.getElementById("results");
+    const countInfo = document.getElementById("countInfo");
+
+    const fitModeEl = document.getElementById("fitMode");
+
+    const targetWEl = document.getElementById("targetW");
+    const targetHEl = document.getElementById("targetH");
+
+    const brightnessEl = document.getElementById("brightness");
+    const contrastEl = document.getElementById("contrast");
+
+    const invertEl = document.getElementById("invert");
+
+    const brightnessVal = document.getElementById("brightnessVal");
+    const contrastVal = document.getElementById("contrastVal");
 
     let queue = [];
 
-    brightnessEl.addEventListener('input', () => brightnessVal.textContent = brightnessEl.value);
-    contrastEl.addEventListener('input', () => contrastVal.textContent = contrastEl.value);
+    brightnessEl.addEventListener("input", () => {
+      brightnessVal.textContent = brightnessEl.value;
+    });
 
-    fileInput.addEventListener('change', e => {
+    contrastEl.addEventListener("input", () => {
+      contrastVal.textContent = contrastEl.value;
+    });
+
+    fileInput.addEventListener("change", (e) => {
       addFiles([...e.target.files]);
-      fileInput.value = '';
+      fileInput.value = "";
     });
 
-    ;['dragenter', 'dragover'].forEach(evt => {
-      dropZone.addEventListener(evt, e => {
+    ["dragenter", "dragover"].forEach((evt) => {
+      dropZone.addEventListener(evt, (e) => {
         e.preventDefault();
         e.stopPropagation();
-        dropZone.classList.add('dragover');
+
+        dropZone.classList.add("dragover");
       });
     });
 
-    ;['dragleave', 'drop'].forEach(evt => {
-      dropZone.addEventListener(evt, e => {
+    ["dragleave", "drop"].forEach((evt) => {
+      dropZone.addEventListener(evt, (e) => {
         e.preventDefault();
         e.stopPropagation();
-        dropZone.classList.remove('dragover');
+
+        dropZone.classList.remove("dragover");
       });
     });
 
-    dropZone.addEventListener('drop', e => {
-      const files = [...e.dataTransfer.files].filter(f => f.type.startsWith('image/'));
+    dropZone.addEventListener("drop", (e) => {
+      const files = [...e.dataTransfer.files].filter((file) =>
+        file.type.startsWith("image/")
+      );
+
       addFiles(files);
     });
 
-    processBtn.addEventListener('click', processAll);
-    downloadAllBtn.addEventListener('click', downloadAll);
-    clearBtn.addEventListener('click', clearAll);
+    processBtn.addEventListener("click", processAll);
+    downloadAllBtn.addEventListener("click", downloadAll);
+    clearBtn.addEventListener("click", clearAll);
 
     function addFiles(files) {
-      const imageFiles = files.filter(f => f.type.startsWith('image/') || /\.(bmp|png|jpe?g|webp|gif|heic|heif)$/i.test(f.name));
+      const imageFiles = files.filter(
+        (file) =>
+          file.type.startsWith("image/") ||
+          /\.(bmp|png|jpe?g|webp|gif|heic|heif)$/i.test(file.name)
+      );
+
       for (const file of imageFiles) {
         const item = {
           id: crypto.randomUUID(),
+
           file,
-          status: 'pending',
+
+          status: "pending",
+
           objectUrl: URL.createObjectURL(file),
+
           processedBlob: null,
+
           processedUrl: null,
-          bmpName: buildOutputName(file.name)
+
+          bmpName: buildOutputName(file.name),
         };
+
         queue.push(item);
       }
+
       renderQueue();
     }
 
     function buildOutputName(originalName) {
-      const dot = originalName.lastIndexOf('.');
-      const base = dot >= 0 ? originalName.slice(0, dot) : originalName;
-      return base + '_x4pro_dithered.bmp';
+      const dot = originalName.lastIndexOf(".");
+
+      const base =
+        dot >= 0
+          ? originalName.slice(0, dot)
+          : originalName;
+
+      return base + "_x4pro_dithered.bmp";
     }
 
     function clearAll() {
       for (const item of queue) {
-        if (item.objectUrl) URL.revokeObjectURL(item.objectUrl);
-        if (item.processedUrl) URL.revokeObjectURL(item.processedUrl);
+        if (item.objectUrl) {
+          URL.revokeObjectURL(item.objectUrl);
+        }
+
+        if (item.processedUrl) {
+          URL.revokeObjectURL(item.processedUrl);
+        }
       }
+
       queue = [];
-      resultsEl.innerHTML = '';
+
+      resultsEl.innerHTML = "";
+
       updateCount();
     }
 
     function updateCount() {
       if (!queue.length) {
-        countInfo.textContent = 'No files loaded.';
+        countInfo.textContent = "No files loaded.";
         return;
       }
-      const done = queue.filter(q => q.status === 'done').length;
-      countInfo.textContent = `${queue.length} file(s) loaded · ${done} processed`;
+
+      const done = queue.filter(
+        (q) => q.status === "done"
+      ).length;
+
+      countInfo.textContent =
+        `${queue.length} file(s) loaded · ${done} processed`;
     }
 
     function renderQueue() {
-      resultsEl.innerHTML = '';
+      resultsEl.innerHTML = "";
 
-      queue.forEach((item, index) => {
-        const card = document.createElement('div');
-        card.className = 'card';
+      queue.forEach((item) => {
+
+        const card = document.createElement("div");
+
+        card.className = "card";
         card.id = `card-${item.id}`;
 
         const statusClass =
-          item.status === 'done' ? 'ok' :
-          item.status === 'error' ? 'err' : 'pending';
+          item.status === "done"
+            ? "ok"
+            : item.status === "error"
+            ? "err"
+            : "pending";
 
         card.innerHTML = `
           <div class="card-top">
+
             <div>
-              <div class="name">${escapeHtml(item.file.name)}</div>
-              <div class="small">${formatBytes(item.file.size)} · output: ${escapeHtml(item.bmpName)}</div>
+              <div class="name">
+                ${escapeHtml(item.file.name)}
+              </div>
+
+              <div class="small">
+                ${formatBytes(item.file.size)}
+                · output:
+                ${escapeHtml(item.bmpName)}
+              </div>
             </div>
+
             <div class="status ${statusClass}">
-              ${item.status === 'done' ? 'Processed' : item.status === 'error' ? 'Error' : 'Pending'}
+              ${
+                item.status === "done"
+                  ? "Processed"
+                  : item.status === "error"
+                  ? "Error"
+                  : "Pending"
+              }
             </div>
+
           </div>
 
           <div class="preview-grid">
+
             <div class="preview-box">
-              <div class="preview-title">Original</div>
-              <img src="${item.objectUrl}" alt="Original preview" />
+
+              <div class="preview-title">
+                Original
+              </div>
+
+              <img
+                src="${item.objectUrl}"
+                alt="Original preview"
+              />
+
             </div>
-            <div class="preview-box" id="processed-box-${item.id}">
-              <div class="preview-title">Processed</div>
+
+            <div
+              class="preview-box"
+              id="processed-box-${item.id}"
+            >
+
+              <div class="preview-title">
+                Processed
+              </div>
+
               ${
                 item.processedUrl
-                  ? `<img src="${item.processedUrl}" alt="Processed preview" />`
-                  : `<div class="small">Not processed yet.</div>`
+                  ? `
+                    <img
+                      src="${item.processedUrl}"
+                      alt="Processed preview"
+                    />
+                  `
+                  : `
+                    <div class="small">
+                      Not processed yet.
+                    </div>
+                  `
               }
+
             </div>
+
           </div>
 
-          <div class="actions" id="actions-${item.id}">
+          <div
+            class="actions"
+            id="actions-${item.id}"
+          >
+
             ${
               item.processedBlob
-                ? `<a class="btn-link btn-download" href="${item.processedUrl}" download="${escapeHtml(item.bmpName)}">Download BMP</a>`
-                : ''
+                ? `
+                  <a
+                    class="btn-link btn-download"
+                    href="${item.processedUrl}"
+                    download="${escapeHtml(item.bmpName)}"
+                  >
+                    Download BMP
+                  </a>
+                `
+                : ""
             }
+
           </div>
         `;
 
@@ -580,29 +938,51 @@
 
     async function processAll() {
       if (!queue.length) {
-        alert('Please choose one or more images first.');
+        alert("Please choose one or more images first.");
         return;
       }
 
       const settings = getSettings();
 
-      for (let i = 0; i < queue.length; i++) {
-        const item = queue[i];
+      for (const item of queue) {
+
         try {
-          item.status = 'pending';
+          item.status = "pending";
+
           refreshCard(item);
 
-          const img = await loadImage(item.objectUrl);
-          const processed = await convertImageToBmp(img, settings);
+          const img =
+            await loadImage(item.objectUrl);
 
-          if (item.processedUrl) URL.revokeObjectURL(item.processedUrl);
-          item.processedBlob = processed.blob;
-          item.processedUrl = URL.createObjectURL(processed.blob);
-          item.status = 'done';
+          const processed =
+            await convertImageToBmp(
+              img,
+              settings
+            );
+
+          if (item.processedUrl) {
+            URL.revokeObjectURL(
+              item.processedUrl
+            );
+          }
+
+          item.processedBlob =
+            processed.blob;
+
+          item.processedUrl =
+            URL.createObjectURL(
+              processed.blob
+            );
+
+          item.status = "done";
+
         } catch (err) {
+
           console.error(err);
-          item.status = 'error';
+
+          item.status = "error";
         }
+
         refreshCard(item);
       }
 
@@ -610,250 +990,745 @@
     }
 
     function refreshCard(item) {
-      const old = document.getElementById(`card-${item.id}`);
+      const old =
+        document.getElementById(
+          `card-${item.id}`
+        );
+
       if (!old) {
         renderQueue();
         return;
       }
 
-      const statusEl = old.querySelector('.status');
-      statusEl.className = 'status ' + (
-        item.status === 'done' ? 'ok' :
-        item.status === 'error' ? 'err' : 'pending'
-      );
-      statusEl.textContent = item.status === 'done' ? 'Processed' : item.status === 'error' ? 'Error' : 'Pending';
+      const statusEl =
+        old.querySelector(".status");
 
-      const processedBox = old.querySelector(`#processed-box-${item.id}`);
+      statusEl.className =
+        "status " +
+        (
+          item.status === "done"
+            ? "ok"
+            : item.status === "error"
+            ? "err"
+            : "pending"
+        );
+
+      statusEl.textContent =
+        item.status === "done"
+          ? "Processed"
+          : item.status === "error"
+          ? "Error"
+          : "Pending";
+
+      const processedBox =
+        old.querySelector(
+          `#processed-box-${item.id}`
+        );
+
       processedBox.innerHTML = `
-        <div class="preview-title">Processed</div>
+        <div class="preview-title">
+          Processed
+        </div>
+
         ${
           item.processedUrl
-            ? `<img src="${item.processedUrl}" alt="Processed preview" />`
-            : `<div class="small">${item.status === 'error' ? 'Failed to process.' : 'Not processed yet.'}</div>`
+            ? `
+              <img
+                src="${item.processedUrl}"
+                alt="Processed preview"
+              />
+            `
+            : `
+              <div class="small">
+                ${
+                  item.status === "error"
+                    ? "Failed to process."
+                    : "Not processed yet."
+                }
+              </div>
+            `
         }
       `;
 
-      const actions = old.querySelector(`#actions-${item.id}`);
-      actions.innerHTML = item.processedBlob
-        ? `<a class="btn-link btn-download" href="${item.processedUrl}" download="${escapeHtml(item.bmpName)}">Download BMP</a>`
-        : '';
+      const actions =
+        old.querySelector(
+          `#actions-${item.id}`
+        );
+
+      actions.innerHTML =
+        item.processedBlob
+          ? `
+            <a
+              class="btn-link btn-download"
+              href="${item.processedUrl}"
+              download="${escapeHtml(item.bmpName)}"
+            >
+              Download BMP
+            </a>
+          `
+          : "";
+
       updateCount();
     }
 
     function getSettings() {
       return {
-        width: Math.max(1, parseInt(targetWEl.value || '480', 10)),
-        height: Math.max(1, parseInt(targetHEl.value || '800', 10)),
+        width: Math.max(
+          1,
+          parseInt(
+            targetWEl.value || "480",
+            10
+          )
+        ),
+
+        height: Math.max(
+          1,
+          parseInt(
+            targetHEl.value || "800",
+            10
+          )
+        ),
+
         fitMode: fitModeEl.value,
-        brightness: parseInt(brightnessEl.value || '0', 10),
-        contrast: parseInt(contrastEl.value || '0', 10),
-        invert: invertEl.checked
+
+        brightness:
+          parseInt(
+            brightnessEl.value || "0",
+            10
+          ),
+
+        contrast:
+          parseInt(
+            contrastEl.value || "0",
+            10
+          ),
+
+        invert: invertEl.checked,
       };
     }
 
     async function loadImage(src) {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.src = src;
-      });
+      return new Promise(
+        (resolve, reject) => {
+
+          const img =
+            new Image();
+
+          img.onload =
+            () => resolve(img);
+
+          img.onerror =
+            reject;
+
+          img.src = src;
+        }
+      );
     }
 
-    async function convertImageToBmp(img, settings) {
-      const { width, height, fitMode, brightness, contrast, invert } = settings;
+    async function convertImageToBmp(
+      img,
+      settings
+    ) {
 
-      const canvas = document.createElement('canvas');
+      const {
+        width,
+        height,
+        fitMode,
+        brightness,
+        contrast,
+        invert,
+      } = settings;
+
+      const canvas =
+        document.createElement(
+          "canvas"
+        );
+
       canvas.width = width;
       canvas.height = height;
-      const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
-      // White background for contain mode or transparent sources.
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, width, height);
+      const ctx =
+        canvas.getContext(
+          "2d",
+          {
+            willReadFrequently: true,
+          }
+        );
 
-      drawImageFitted(ctx, img, width, height, fitMode);
+      ctx.fillStyle = "#ffffff";
 
-      let imageData = ctx.getImageData(0, 0, width, height);
-      const dithered = grayscaleAndDither(imageData, brightness, contrast, invert);
+      ctx.fillRect(
+        0,
+        0,
+        width,
+        height
+      );
 
-      ctx.putImageData(dithered, 0, 0);
+      drawImageFitted(
+        ctx,
+        img,
+        width,
+        height,
+        fitMode
+      );
 
-      const blob = make24BitBmpBlob(dithered, width, height);
-      return { blob, canvas };
+      const imageData =
+        ctx.getImageData(
+          0,
+          0,
+          width,
+          height
+        );
+
+      const dithered =
+        grayscaleAndDither(
+          imageData,
+          brightness,
+          contrast,
+          invert
+        );
+
+      ctx.putImageData(
+        dithered,
+        0,
+        0
+      );
+
+      const blob =
+        make24BitBmpBlob(
+          dithered,
+          width,
+          height
+        );
+
+      return {
+        blob,
+        canvas,
+      };
     }
 
-    function drawImageFitted(ctx, img, targetW, targetH, mode) {
-      const sw = img.naturalWidth || img.width;
-      const sh = img.naturalHeight || img.height;
+    function drawImageFitted(
+      ctx,
+      img,
+      targetW,
+      targetH,
+      mode
+    ) {
 
-      if (mode === 'contain') {
-        const scale = Math.min(targetW / sw, targetH / sh);
-        const dw = sw * scale;
-        const dh = sh * scale;
-        const dx = (targetW - dw) / 2;
-        const dy = (targetH - dh) / 2;
-        ctx.drawImage(img, dx, dy, dw, dh);
+      const sw =
+        img.naturalWidth ||
+        img.width;
+
+      const sh =
+        img.naturalHeight ||
+        img.height;
+
+      if (mode === "contain") {
+
+        const scale =
+          Math.min(
+            targetW / sw,
+            targetH / sh
+          );
+
+        const dw =
+          sw * scale;
+
+        const dh =
+          sh * scale;
+
+        const dx =
+          (targetW - dw) / 2;
+
+        const dy =
+          (targetH - dh) / 2;
+
+        ctx.drawImage(
+          img,
+          dx,
+          dy,
+          dw,
+          dh
+        );
+
         return;
       }
 
-      // cover
-      const scale = Math.max(targetW / sw, targetH / sh);
-      const dw = sw * scale;
-      const dh = sh * scale;
-      const dx = (targetW - dw) / 2;
-      const dy = (targetH - dh) / 2;
-      ctx.drawImage(img, dx, dy, dw, dh);
+      const scale =
+        Math.max(
+          targetW / sw,
+          targetH / sh
+        );
+
+      const dw =
+        sw * scale;
+
+      const dh =
+        sh * scale;
+
+      const dx =
+        (targetW - dw) / 2;
+
+      const dy =
+        (targetH - dh) / 2;
+
+      ctx.drawImage(
+        img,
+        dx,
+        dy,
+        dw,
+        dh
+      );
     }
 
-    function grayscaleAndDither(imageData, brightness = 0, contrast = 0, invert = false) {
-      const { width, height, data } = imageData;
-      const gray = new Float32Array(width * height);
+    function grayscaleAndDither(
+      imageData,
+      brightness = 0,
+      contrast = 0,
+      invert = false
+    ) {
 
-      // contrast factor
-      const c = contrast;
-      const factor = (259 * (c + 255)) / (255 * (259 - c));
+      const {
+        width,
+        height,
+        data
+      } = imageData;
 
-      // grayscale + brightness/contrast
-      for (let i = 0, p = 0; i < data.length; i += 4, p++) {
+      const gray =
+        new Float32Array(
+          width * height
+        );
+
+      const factor =
+        (
+          259 *
+          (contrast + 255)
+        ) /
+        (
+          255 *
+          (259 - contrast)
+        );
+
+      for (
+        let i = 0, p = 0;
+        i < data.length;
+        i += 4, p++
+      ) {
+
         const r = data[i];
         const g = data[i + 1];
         const b = data[i + 2];
 
-        // luminance
-        let y = 0.299 * r + 0.587 * g + 0.114 * b;
+        let y =
+          0.299 * r +
+          0.587 * g +
+          0.114 * b;
 
-        // brightness
-        y += brightness * 2.55;
+        y +=
+          brightness * 2.55;
 
-        // contrast around mid-point 128
-        y = factor * (y - 128) + 128;
+        y =
+          factor *
+          (y - 128) +
+          128;
 
-        // clamp
-        y = Math.max(0, Math.min(255, y));
-        if (invert) y = 255 - y;
+        y =
+          Math.max(
+            0,
+            Math.min(255, y)
+          );
+
+        if (invert) {
+          y = 255 - y;
+        }
 
         gray[p] = y;
       }
 
-      // Floyd–Steinberg dithering to black/white
-      for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-          const idx = y * width + x;
-          const oldVal = gray[idx];
-          const newVal = oldVal < 128 ? 0 : 255;
-          const err = oldVal - newVal;
-          gray[idx] = newVal;
+      for (
+        let y = 0;
+        y < height;
+        y++
+      ) {
 
-          if (x + 1 < width) gray[idx + 1] += err * 7 / 16;
-          if (x - 1 >= 0 && y + 1 < height) gray[idx + width - 1] += err * 3 / 16;
-          if (y + 1 < height) gray[idx + width] += err * 5 / 16;
-          if (x + 1 < width && y + 1 < height) gray[idx + width + 1] += err * 1 / 16;
+        for (
+          let x = 0;
+          x < width;
+          x++
+        ) {
+
+          const idx =
+            y * width + x;
+
+          const oldVal =
+            gray[idx];
+
+          const newVal =
+            oldVal < 128
+              ? 0
+              : 255;
+
+          const err =
+            oldVal - newVal;
+
+          gray[idx] =
+            newVal;
+
+          if (x + 1 < width)
+            gray[idx + 1] +=
+              err * 7 / 16;
+
+          if (
+            x - 1 >= 0 &&
+            y + 1 < height
+          )
+            gray[
+              idx +
+              width -
+              1
+            ] +=
+              err * 3 / 16;
+
+          if (
+            y + 1 <
+            height
+          )
+            gray[
+              idx +
+              width
+            ] +=
+              err * 5 / 16;
+
+          if (
+            x + 1 <
+              width &&
+            y + 1 <
+              height
+          )
+            gray[
+              idx +
+              width +
+              1
+            ] +=
+              err * 1 / 16;
         }
       }
 
-      // write back as RGBA
-      const out = new ImageData(width, height);
-      for (let i = 0, p = 0; p < gray.length; i += 4, p++) {
-        const v = gray[p] < 128 ? 0 : 255;
+      const out =
+        new ImageData(
+          width,
+          height
+        );
+
+      for (
+        let i = 0, p = 0;
+        p < gray.length;
+        i += 4, p++
+      ) {
+
+        const v =
+          gray[p] < 128
+            ? 0
+            : 255;
+
         out.data[i] = v;
         out.data[i + 1] = v;
         out.data[i + 2] = v;
         out.data[i + 3] = 255;
       }
+
       return out;
     }
 
-    function make24BitBmpBlob(imageData, width, height) {
-      const rowSize = Math.floor((24 * width + 31) / 32) * 4;
-      const pixelArraySize = rowSize * height;
-      const fileSize = 54 + pixelArraySize;
+    function make24BitBmpBlob(
+      imageData,
+      width,
+      height
+    ) {
 
-      const buffer = new ArrayBuffer(fileSize);
-      const view = new DataView(buffer);
+      const rowSize =
+        Math.floor(
+          (
+            24 * width +
+            31
+          ) / 32
+        ) * 4;
 
-      // BMP Header
-      view.setUint8(0, 0x42); // B
-      view.setUint8(1, 0x4D); // M
-      view.setUint32(2, fileSize, true);
-      view.setUint32(6, 0, true);
-      view.setUint32(10, 54, true);
+      const pixelArraySize =
+        rowSize * height;
 
-      // DIB Header (BITMAPINFOHEADER)
-      view.setUint32(14, 40, true);
-      view.setInt32(18, width, true);
-      view.setInt32(22, height, true); // bottom-up
-      view.setUint16(26, 1, true);
-      view.setUint16(28, 24, true);
-      view.setUint32(30, 0, true); // BI_RGB no compression
-      view.setUint32(34, pixelArraySize, true);
-      view.setInt32(38, 2835, true); // 72 DPI
-      view.setInt32(42, 2835, true);
-      view.setUint32(46, 0, true);
-      view.setUint32(50, 0, true);
+      const fileSize =
+        54 + pixelArraySize;
 
-      const data = imageData.data;
+      const buffer =
+        new ArrayBuffer(
+          fileSize
+        );
+
+      const view =
+        new DataView(
+          buffer
+        );
+
+      // BMP signature
+      view.setUint8(
+        0,
+        0x42
+      );
+
+      view.setUint8(
+        1,
+        0x4d
+      );
+
+      // File header
+      view.setUint32(
+        2,
+        fileSize,
+        true
+      );
+
+      view.setUint32(
+        6,
+        0,
+        true
+      );
+
+      view.setUint32(
+        10,
+        54,
+        true
+      );
+
+      // BITMAPINFOHEADER
+      view.setUint32(
+        14,
+        40,
+        true
+      );
+
+      view.setInt32(
+        18,
+        width,
+        true
+      );
+
+      view.setInt32(
+        22,
+        height,
+        true
+      );
+
+      view.setUint16(
+        26,
+        1,
+        true
+      );
+
+      view.setUint16(
+        28,
+        24,
+        true
+      );
+
+      view.setUint32(
+        30,
+        0,
+        true
+      );
+
+      view.setUint32(
+        34,
+        pixelArraySize,
+        true
+      );
+
+      view.setInt32(
+        38,
+        2835,
+        true
+      );
+
+      view.setInt32(
+        42,
+        2835,
+        true
+      );
+
+      view.setUint32(
+        46,
+        0,
+        true
+      );
+
+      view.setUint32(
+        50,
+        0,
+        true
+      );
+
+      const data =
+        imageData.data;
+
       let offset = 54;
 
-      // BMP stores rows bottom to top
-      for (let y = height - 1; y >= 0; y--) {
-        const rowStart = y * width * 4;
-        for (let x = 0; x < width; x++) {
-          const i = rowStart + x * 4;
-          const r = data[i];
-          const g = data[i + 1];
-          const b = data[i + 2];
+      for (
+        let y =
+          height - 1;
+        y >= 0;
+        y--
+      ) {
 
-          // BGR order
-          view.setUint8(offset++, b);
-          view.setUint8(offset++, g);
-          view.setUint8(offset++, r);
+        const rowStart =
+          y *
+          width *
+          4;
+
+        for (
+          let x = 0;
+          x < width;
+          x++
+        ) {
+
+          const i =
+            rowStart +
+            x * 4;
+
+          const r =
+            data[i];
+
+          const g =
+            data[i + 1];
+
+          const b =
+            data[i + 2];
+
+          // BMP uses BGR order
+          view.setUint8(
+            offset++,
+            b
+          );
+
+          view.setUint8(
+            offset++,
+            g
+          );
+
+          view.setUint8(
+            offset++,
+            r
+          );
         }
 
-        // row padding
-        while ((offset - 54) % rowSize !== 0) {
-          view.setUint8(offset++, 0);
+        while (
+          (offset - 54) %
+            rowSize !==
+          0
+        ) {
+
+          view.setUint8(
+            offset++,
+            0
+          );
         }
       }
 
-      return new Blob([buffer], { type: 'image/bmp' });
+      return new Blob(
+        [buffer],
+        {
+          type: "image/bmp",
+        }
+      );
     }
 
     function downloadAll() {
-      const ready = queue.filter(q => q.processedBlob && q.processedUrl);
+
+      const ready =
+        queue.filter(
+          (q) =>
+            q.processedBlob &&
+            q.processedUrl
+        );
+
       if (!ready.length) {
-        alert('No processed files yet. Click "Process selected images" first.');
+
+        alert(
+          'No processed files yet. Click "Process selected images" first.'
+        );
+
         return;
       }
 
-      // Browser may block aggressive multi-downloads on some mobile devices,
-      // but this works well in many cases.
-      ready.forEach((item, index) => {
-        setTimeout(() => {
-          const a = document.createElement('a');
-          a.href = item.processedUrl;
-          a.download = item.bmpName;
-          document.body.appendChild(a);
-          a.click();
-          a.remove();
-        }, index * 250);
-      });
+      ready.forEach(
+        (item, index) => {
+
+          setTimeout(
+            () => {
+
+              const a =
+                document.createElement(
+                  "a"
+                );
+
+              a.href =
+                item.processedUrl;
+
+              a.download =
+                item.bmpName;
+
+              document.body.appendChild(
+                a
+              );
+
+              a.click();
+
+              a.remove();
+
+            },
+            index * 250
+          );
+        }
+      );
     }
 
     function formatBytes(bytes) {
-      if (bytes < 1024) return `${bytes} B`;
-      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+
+      if (bytes < 1024)
+        return `${bytes} B`;
+
+      if (
+        bytes <
+        1024 * 1024
+      )
+        return (
+          bytes / 1024
+        ).toFixed(1) +
+          " KB";
+
+      return (
+        bytes /
+        (
+          1024 *
+          1024
+        )
+      ).toFixed(2) +
+        " MB";
     }
 
     function escapeHtml(str) {
-      return String(str).replace(/[&<>"']/g, m => ({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-      }[m]));
+
+      return String(str)
+        .replace(
+          /[&<>"']/g,
+          (m) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              '"': "&quot;",
+              "'": "&#39;",
+            })[m]
+        );
     }
 
     updateCount();
